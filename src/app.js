@@ -52,4 +52,28 @@ app.delete('/data/:id', (req,res)=>{
     }
 })
 
+app.patch('/data/:id', (req,res)=>{
+    const id =Number(req.params.id);
+    const description =req.body.description
+    let found =false;
+    notes.forEach(innerArray=>{
+        const notes =innerArray.find(note=>note.id===id);
+        console.log(innerArray);
+        console.log(notes);
+        if(notes){
+            found = true;
+            notes.description =description;
+        }
+    });
+    if(found){
+        res.status(200).json({
+            message: 'Data updated successfully',
+        });
+    } else {
+        res.status(404).json({
+            message: 'Data not found'
+        });
+    }
+})
+
 module.exports = app
