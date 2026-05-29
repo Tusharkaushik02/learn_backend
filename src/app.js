@@ -1,79 +1,96 @@
 const express = require('express');
+const Note = require('./models/note.model');
 const app = express();
 
 app.use(express.json());
-const notes =[];
 
-app.post('/data', (req, res) => {
-    const data =req.body;
-    console.log('Received data:', data);
-    notes.push(data);
-    res.status(201).json({
-        message: 'Data received',
-        data
-    });
+app.post('/notes', async (req, res) => {
+    try {
+        const { title, description } = req.body;
+
+        const note = await Note.create({
+            title,
+            description
+        });
+
+        res.status(201).json({
+            message: 'Note created successfully',
+            note
+        });
+    } catch (err) {
+        res.status(400).json({
+            message: 'Failed to create note',
+            error: err.message
+        });
+    }
 });
 
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
-app.get('/data', (req, res) => {
-    res.status(200).json({
-        message: 'This is the data page',
-        notes:notes
-    });
-});
-
-app.delete('/data/:id', (req,res)=>{
-    const id =Number(req.params.id);
-    let found =false;
-    notes.forEach(innerArray=>{
-        const index=innerArray.findIndex(note=>note.id===id);
-    
-    if(index!==-1){
-        innerArray.splice(index,1);
-        found = true;
-        }
-    });
-    
-    if(found){
+app.get('/notes', async (req, res) => {
+    try {
+        const notes = await Note.find().sort({ createdAt: -1 });
 
         res.status(200).json({
-            message: 'Data deleted successfully',
+            message: 'Notes fetched successfully',
             notes
         });
-
-    } else {
-
-        res.status(404).json({
-            message: 'Data not found'
+    } catch (err) {
+        res.status(500).json({
+            message: 'Failed to fetch notes',
+            error: err.message
         });
     }
-})
+});
 
-app.patch('/data/:id', (req,res)=>{
-    const id =Number(req.params.id);
-    const description =req.body.description
-    let found =false;
-    notes.forEach(innerArray=>{
-        const notes =innerArray.find(note=>note.id===id);
-        console.log(innerArray);
-        console.log(notes);
-        if(notes){
-            found = true;
-            notes.description =description;
+app.delete('/notes/:id', async (req, res) => {
+    try {
+        const note = await Note.findByIdAndDelete(req.params.id);
+
+        if (!note) {
+            return res.status(404).json({
+                message: 'Note not found'
+            });
         }
-    });
-    if(found){
+
         res.status(200).json({
-            message: 'Data updated successfully',
+            message: 'Note deleted successfully',
+            note
         });
-    } else {
-        res.status(404).json({
-            message: 'Data not found'
+    } catch (err) {
+        res.status(400).json({
+            message: 'Failed to delete note',
+            error: err.message
         });
     }
-})
+});
 
-module.exports = app
+app.patch('/notes/:id', async (req, res) => {
+    try {
+        const note = await Note.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        if (!note) {
+            return res.status(404).json({
+                message: 'Note not found'
+            });
+        }
+
+        res.status(200).json({
+            message: 'Note updated successfully',
+            note
+        });
+    } catch (err) {
+        res.status(400).json({
+            message: 'Failed to update note',
+            error: err.message
+        });
+    }
+});
+
+module.exports = app;
