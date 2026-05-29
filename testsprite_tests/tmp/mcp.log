@@ -1,8 +1,0 @@
-{"timestamp":"2026-05-28T13:15:51.328Z","level":"info","message":"Tool invocation started","correlationId":"9687fbe0-dc7f-4c2a-830d-9681ba3abf38","tool":"testsprite_bootstrap"}
-{"timestamp":"2026-05-28T13:15:51.340Z","level":"debug","message":"Initialization params","correlationId":"9687fbe0-dc7f-4c2a-830d-9681ba3abf38","tool":"testsprite_bootstrap","context":{"localPort":3000,"type":"backend","projectPath":"c:\\Users\\Ashok Kaushik\\Desktop\\learn_backend","testScope":"codebase"}}
-{"timestamp":"2026-05-28T13:15:51.342Z","level":"info","message":"Attempting to start server (attempt 1/3)","correlationId":"9687fbe0-dc7f-4c2a-830d-9681ba3abf38","tool":"testsprite_bootstrap"}
-{"timestamp":"2026-05-28T13:15:51.395Z","level":"info","message":"HTTP server started successfully on port 63801","correlationId":"9687fbe0-dc7f-4c2a-830d-9681ba3abf38","tool":"testsprite_bootstrap"}
-{"timestamp":"2026-05-28T13:15:51.402Z","level":"info","message":"HTTP server started, config saved","correlationId":"9687fbe0-dc7f-4c2a-830d-9681ba3abf38","tool":"testsprite_bootstrap"}
-{"timestamp":"2026-05-28T13:15:54.166Z","level":"info","message":"GET /init?project_path=c%3A%5CUsers%5CAshok%20Kaushik%5CDesktop%5Clearn_backend&default_type=backend 200 15ms","correlationId":"9687fbe0-dc7f-4c2a-830d-9681ba3abf38","tool":"testsprite_bootstrap"}
-{"timestamp":"2026-05-28T13:15:55.108Z","level":"info","message":"GET /api/config?project_path=c%3A%5CUsers%5CAshok%20Kaushik%5CDesktop%5Clearn_backend 200 12ms","correlationId":"9687fbe0-dc7f-4c2a-830d-9681ba3abf38","tool":"testsprite_bootstrap"}
-{"timestamp":"2026-05-28T13:15:55.396Z","level":"info","message":"GET /favicon.ico 404 3ms","correlationId":"9687fbe0-dc7f-4c2a-830d-9681ba3abf38","tool":"testsprite_bootstrap"}
